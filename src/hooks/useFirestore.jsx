@@ -69,7 +69,7 @@ export const useFirestore = (collection) => {
   };
 
   // delete a document
-  const deleteDocument = async (doc) => {
+  const deleteDocument = async (id) => {
     dispatch({ type: "IS_PENDING" });
     try {
       const deleteDocument = await ref.doc(id).delete();

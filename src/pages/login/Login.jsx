@@ -13,7 +13,7 @@ export default function Login() {
 
   return (
     <form className="login-form" onSubmit={handleSubmit}>
-      <h2>login</h2>
+      <h2>Login</h2>
       <label>
         <span>email:</span>
         <input
