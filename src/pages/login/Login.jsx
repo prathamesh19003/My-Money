@@ -1,39 +1,42 @@
 import { useState } from "react";
+import { useLogin } from "../../hooks/useLogin";
 import "./Login.css";
-function Login() {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login, error, isPending } = useLogin();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = { email, password };
-    console.log(data);
-    setEmail("");
-    setPassword("");
+    login(email, password);
   };
+
   return (
-    <div>
-      <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Login Form</h2>
-        <label>
-          <span>Email</span>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <label>
-          <span>Password</span>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <button className="btn">Submit</button>
-      </form>
-    </div>
+    <form className="login-form" onSubmit={handleSubmit}>
+      <h2>login</h2>
+      <label>
+        <span>email:</span>
+        <input
+          type="email"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+        />
+      </label>
+      <label>
+        <span>password:</span>
+        <input
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+        />
+      </label>
+      {!isPending && <button className="btn">Login</button>}
+      {isPending && (
+        <button className="btn" disabled>
+          loading
+        </button>
+      )}
+      {error && <p>{error}</p>}
+    </form>
   );
 }
-
-export default Login;
